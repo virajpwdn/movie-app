@@ -26,7 +26,7 @@ export const fetchMovies = async ({ query }: { query: string }) => {
 
     const data = await response.json();
 
-    return data.result;
+    return data.results;
   } catch (error) {
     console.log("ERROR - ", error);
     throw new Error("Something went wrong");
