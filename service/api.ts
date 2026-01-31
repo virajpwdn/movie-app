@@ -9,6 +9,7 @@ export const apiClient = {
 };
 
 export const fetchMovies = async ({ query }: { query: string }) => {
+  console.log("QUERY ", query)
   const endpoint = query
     ? `${apiClient.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
     : `${apiClient.BASE_URL}/discover/movie?sort_by=popularity.desc`;

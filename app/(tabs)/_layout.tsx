@@ -7,8 +7,8 @@ const _layout = () => {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarItemStyle: {
-          //   width: "100%",
-        //   flex: 1,
+          // width: "100%",
+          //   flex: 1,
           height: "100%",
           justifyContent: "center",
           alignItems: "center",
@@ -16,7 +16,7 @@ const _layout = () => {
         tabBarStyle: {
           backgroundColor: "#0f0D23",
           borderRadius: 50,
-          marginHorizontal: 20,
+          marginHorizontal: 18,
           marginBottom: 36,
           height: 52,
           position: "absolute",
@@ -34,6 +34,19 @@ const _layout = () => {
           tabBarIcon: ({ focused }) => (
             <>
               <TabComp title="Home" focused={focused} icon={icons.home} />
+            </>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: "Search",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <>
+              <TabComp title="Search" focused={focused} icon={icons.search} />
             </>
           ),
         }}
@@ -60,19 +73,6 @@ const _layout = () => {
           tabBarIcon: ({ focused }) => (
             <>
               <TabComp title="Saved" focused={focused} icon={icons.save} />
-            </>
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: "Search",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <>
-              <TabComp title="Search" focused={focused} icon={icons.search} />
             </>
           ),
         }}

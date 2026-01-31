@@ -6,7 +6,7 @@ const TabComp = ({ title, focused, icon }: TabProps) => {
     return (
       <ImageBackground
         source={images.highlight}
-        className="flex flex-row gap-2 w-full flex-1 min-w-[115px] min-h-16 mt-4 justify-center items-center rounded-full overflow-hidden"
+        className="flex flex-row gap-2 w-full flex-1 min-w-[88px] min-h-16 mt-4 justify-center items-center rounded-full overflow-hidden"
       >
         <Image source={icon} className="size-5" tintColor="#151312" />
         <Text className="text-secondary text-base font-semibold">{title}</Text>

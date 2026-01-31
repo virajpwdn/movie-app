@@ -5,6 +5,7 @@ import useFetch from "@/service/useFetch";
 import { useRouter } from "expo-router";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
 
 export default function Index() {
@@ -52,18 +53,6 @@ export default function Index() {
     </View>
   );
 
-  const truncateText = (text: string) => {
-    if(text.includes(":")) {
-      const newText = text.split(":");
-      return newText[0];
-    }else return text
-  }
-
-  // Movie Item Component
-  const renderMovieItem = ({ item }: any) => (
-    <Text className="text-sm text-white">{truncateText(item.title)}</Text>
-  );
-
   // Empty Component - Show when no movies
   const renderEmptyComponent = () => (
     <Text className="text-center text-white mt-10">No movies found</Text>
@@ -76,12 +65,10 @@ export default function Index() {
         {/* <SafeAreaView> */}
         <FlatList
           data={movies || []}
-          renderItem={renderMovieItem}
+          renderItem={({ item }) => <MovieCard {...item} />}
           keyExtractor={(item) => item.id.toString()}
-
           /* Header Component */
           ListHeaderComponent={renderHeader}
-
           /* Empty State */
           ListEmptyComponent={
             !moviesLoading && !moviesError ? renderEmptyComponent : null
