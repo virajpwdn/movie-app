@@ -1,27 +1,40 @@
+import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { fetchMovies } from "@/service/api";
 import useFetch from "@/service/useFetch";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
   Image,
   StyleSheet,
-  View,
   Text,
+  View,
 } from "react-native";
 import MovieCard from "../components/MovieCard";
-import { icons } from "@/constants/icons";
 import SearchBar from "../components/SearchBar";
-import { useState } from "react";
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const {
     data: movies,
     loading: moviesLoading,
     error: moviesError,
+    refetch: loadMovies,
+    reset,
   } = useFetch(() => fetchMovies({ query: searchQuery }), false);
 
-  console.log("DATA -> ", searchQuery)
+  useEffect(() => {
+    const timeoutId = setTimeout(async () => {
+      if (searchQuery.trim()) {
+        await loadMovies();
+      } else {
+        reset();
+      }
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
   return (
     <View className="flex-1 bg-primary">
       <Image
@@ -55,6 +68,7 @@ const Search = () => {
                 placeholder="Search Movies"
                 value={searchQuery}
                 onChangeText={(text: string) => setSearchQuery(text)}
+                onPress={() => fetchMovies({ query: searchQuery })}
               />
             </View>
 
@@ -72,15 +86,12 @@ const Search = () => {
               </Text>
             )}
 
-            {!moviesLoading &&
-              !moviesError &&
-              searchQuery.trim() &&
-              movies?.length > 0 && (
-                <Text className="text-xl text-white font-bold">
-                  Search Result for{" "}
-                  <Text className="text-accent">{searchQuery}</Text>
-                </Text>
-              )}
+            {!moviesLoading && !moviesError && searchQuery.trim() && (
+              <Text className="text-xl text-white font-bold">
+                Search Result for{" "}
+                <Text className="text-accent">{searchQuery}</Text>
+              </Text>
+            )}
           </>
         }
       />
