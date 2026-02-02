@@ -1,8 +1,14 @@
 import { icons } from "@/constants/icons";
 import { fetchMovieDetails } from "@/service/api";
 import useFetch from "@/service/useFetch";
-import { useLocalSearchParams } from "expo-router";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import MovieInfo from "../components/MovieInfo";
 const Details = () => {
   const { id } = useLocalSearchParams(); // to get dynamic name passed in url
@@ -55,11 +61,13 @@ const Details = () => {
           <View className="flex-row w-[75%] justify-between">
             <MovieInfo
               label="Budget"
-              value={`$${movie?.budget / 1_000_000} million`}
+              value={movie && `$${movie?.budget / 1_000_000} million`}
             />
             <MovieInfo
               label="Revenue"
-              value={`$${Math.round(movie?.revenue / 1_000_000)} million`}
+              value={
+                movie && `$${Math.round(movie?.revenue / 1_000_000)} million`
+              }
             />
           </View>
 
@@ -73,11 +81,18 @@ const Details = () => {
         </View>
       </ScrollView>
 
-      <TouchableOpacity>
-        
+      <TouchableOpacity
+        className="absoulte bottom-5 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
+        onPress={router.back}
+      >
+        <Image
+          source={icons.arrow}
+          className="size-5 mr-1 mt-0.5 rotate-180"
+          tintColor="#fff"
+        ></Image>
+        <Text className="text-white font-semibold text-base">Go back</Text>
       </TouchableOpacity>
     </View>
   );
 };
 export default Details;
-const styles = StyleSheet.create({});

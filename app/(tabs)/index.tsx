@@ -4,7 +4,14 @@ import { fetchMovies } from "@/service/api";
 import { getTrendingMovies } from "@/service/appWrite";
 import useFetch from "@/service/useFetch";
 import { useRouter } from "expo-router";
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Keyboard,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
@@ -59,7 +66,10 @@ export default function Index() {
       {!moviesLoading && !moviesError && (
         <View className="mt-5">
           <SearchBar
-            onPress={() => router.push("/search")}
+            onPress={() => {
+              Keyboard.dismiss();
+              router.push("/search");
+            }}
             placeholder="Search for your Favourite Movie"
           />
 
