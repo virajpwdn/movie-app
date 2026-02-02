@@ -24,6 +24,7 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
 
     if (result.documents.length > 0) {
       const existingMovie = result.documents[0];
+      console.log("EXISTING MOVIE - ", existingMovie)
 
       await database.updateDocument(
         config.DATABASE_ID,
@@ -50,11 +51,31 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
 
     console.log("result", result);
   } catch (error) {
-    console.log(error);
-    throw new Error("Something went wrong in search: ", error);
+    console.log(
+      error instanceof Error
+        ? error
+        : new Error("Appwrite error updateSearchCound"),
+    );
+    throw new Error("Something went wrong in search");
   }
 };
 
-export const getTrendingMovies = async (): Promise<TrendingMovie | undefined> => {
-    return
-}
+export const getTrendingMovies = async (): Promise<
+  TrendingMovie[] | undefined
+> => {
+  try {
+    const result = await database.listDocuments(
+      config.DATABASE_ID,
+      config.TABLE_ID,
+      [Query.limit(5), Query.orderDesc("count")],
+    );
+    return result.documents as unknown as TrendingMovie[];
+  } catch (error) {
+    console.log(
+      error instanceof Error
+        ? error
+        : new Error("Appwrite Trending movies Error"),
+    );
+    return undefined;
+  }
+};
