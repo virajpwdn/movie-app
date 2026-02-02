@@ -4,7 +4,8 @@ const _config = {
   DATABASE_ID: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID || "",
   TABLE_ID: process.env.EXPO_PUBLIC_APPWRITE_TABLE_ID || "",
   APPWRITE_URI: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT || "",
-  PROJECT_ID: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID || "",
+  PROJECT_ID: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID || "",
+  APPWRITE_API_KEY: process.env.EXPO_PUBLIC_APPWRITE_API_KEY || "",
 };
 
 export const config = Object.freeze(_config);

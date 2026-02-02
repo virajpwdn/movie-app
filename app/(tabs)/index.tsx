@@ -8,6 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
 
+
 export default function Index() {
   const router = useRouter();
   const {

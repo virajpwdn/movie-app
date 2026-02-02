@@ -1,7 +1,11 @@
 import TabComp from "@/app/components/TabComp";
 import { icons } from "@/constants/icons";
 import { Tabs } from "expo-router";
+import { client } from "@/service/appWrite";
+import { useEffect } from "react";
 const _layout = () => {
+
+
   return (
     <Tabs
       screenOptions={{

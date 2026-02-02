@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
+import { updateSearchCount } from "@/service/appWrite";
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const {
@@ -27,6 +28,11 @@ const Search = () => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies();
+
+        if (movies?.length > 0 && movies[0]) {
+          console.log("first")
+          updateSearchCount(searchQuery, movies[1]);
+        }
       } else {
         reset();
       }
@@ -34,6 +40,8 @@ const Search = () => {
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
+
+  
 
   return (
     <View className="flex-1 bg-primary">
