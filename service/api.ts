@@ -32,3 +32,26 @@ export const fetchMovies = async ({ query }: { query: string }) => {
     throw new Error("Something went wrong");
   }
 };
+
+export const fetchMovieDetails = async (
+  movieId: string,
+): Promise<MovieDetails> => {
+  try {
+    const response = await fetch(
+      `${apiClient.BASE_URL}/movie/${movieId}/?api_key=${config.API_KEY}`,
+      {
+        method: "GET",
+        headers: apiClient.headers,
+      },
+    );
+
+    if (!response.ok) throw new Error("Failed to fetch movie details");
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
